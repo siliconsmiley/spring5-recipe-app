@@ -3,6 +3,9 @@ package guru.springframework;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author mhw
+ */
 @SpringBootApplication
 public class Spring5RecipeAppApplication {
 
