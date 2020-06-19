@@ -1,8 +1,8 @@
 package guru.springframework.domain;
 
 import javax.persistence.*;
-import java.util.Arrays;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Recipe {
@@ -20,6 +20,10 @@ public class Recipe {
     private String directions;
     //todo add
     //private Difficulty difficulty;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
+
     @Lob
     private Byte[] image;
 
@@ -90,6 +94,14 @@ public class Recipe {
         this.directions = directions;
     }
 
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
     public Byte[] getImage() {
         return image;
     }
@@ -118,15 +130,12 @@ public class Recipe {
                 Objects.equals(servings, recipe.servings) &&
                 Objects.equals(source, recipe.source) &&
                 Objects.equals(url, recipe.url) &&
-                Objects.equals(directions, recipe.directions) &&
-                Arrays.equals(image, recipe.image);
+                Objects.equals(directions, recipe.directions);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, description, prepTime, cookTime, servings, source, url, directions);
-        result = 31 * result + Arrays.hashCode(image);
-        return result;
+        return Objects.hash(id, description, prepTime, cookTime, servings, source, url, directions);
     }
 
     @Override
