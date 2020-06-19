@@ -9,7 +9,7 @@ public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     private String description;
     private BigDecimal amount;
 
@@ -19,12 +19,22 @@ public class Ingredient {
     @ManyToOne
     private Recipe recipe;
 
+    public Ingredient() {
+    }
+
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
+        this.description = description;
+        this.amount = amount;
+        this.uom = uom;
+        this.recipe = recipe;
+    }
+
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getDescription() {
@@ -64,20 +74,20 @@ public class Ingredient {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ingredient that = (Ingredient) o;
-        return Objects.equals(Id, that.Id) &&
+        return Objects.equals(id, that.id) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(amount, that.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id, description, amount);
+        return Objects.hash(id, description, amount);
     }
 
     @Override
     public String toString() {
         return "Ingredient{" +
-                "Id=" + Id +
+                "Id=" + id +
                 ", description='" + description + '\'' +
                 ", amount=" + amount +
                 '}';
