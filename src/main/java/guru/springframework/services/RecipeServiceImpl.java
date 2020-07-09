@@ -48,6 +48,14 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    // transactional added to prevent lazy properties causing problems when conversions happen outside of scope i.e. tests
+    @Transactional
+    public RecipeCommand findCommandById(Long id) {
+        return recipeToRecipeCommand.convert(findById(id));
+    }
+
+    @Override
+    // transactional added to prevent lazy properties causing problems when conversions happen outside of scope i.e. tests
     @Transactional
     public RecipeCommand saveRecipeCommand(RecipeCommand command) {
         Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
