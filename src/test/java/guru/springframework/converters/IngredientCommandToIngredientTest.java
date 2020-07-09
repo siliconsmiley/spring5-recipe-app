@@ -1,6 +1,5 @@
 package guru.springframework.converters;
 
-import guru.springframework.commands.IngredientCommand;
 import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
@@ -33,13 +32,13 @@ public class IngredientCommandToIngredientTest {
 
     @Test
     public void testEmptyObject() throws Exception {
-        assertNotNull(converter.convert(new IngredientCommand()));
+        assertNotNull(converter.convert(new guru.springframework.commands.IngredientCommand()));
     }
 
     @Test
     public void convert() throws Exception {
         //given
-        IngredientCommand command = new IngredientCommand();
+        guru.springframework.commands.IngredientCommand command = new guru.springframework.commands.IngredientCommand();
         command.setId(ID_VALUE);
         command.setAmount(AMOUNT);
         command.setDescription(DESCRIPTION);
@@ -62,7 +61,7 @@ public class IngredientCommandToIngredientTest {
     @Test
     public void convertWithNullUOM() throws Exception {
         //given
-        IngredientCommand command = new IngredientCommand();
+        guru.springframework.commands.IngredientCommand command = new guru.springframework.commands.IngredientCommand();
         command.setId(ID_VALUE);
         command.setAmount(AMOUNT);
         command.setDescription(DESCRIPTION);

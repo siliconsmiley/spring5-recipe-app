@@ -1,13 +1,12 @@
 package guru.springframework.converters;
 
-import guru.springframework.commands.IngredientCommand;
 import guru.springframework.domain.Ingredient;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
-public class IngredientCommandToIngredient implements Converter<IngredientCommand, Ingredient> {
+public class IngredientCommandToIngredient implements Converter<guru.springframework.commands.IngredientCommand, Ingredient> {
 
     private final UnitOfMeasureCommandToUnitOfMeasure uomConverter;
 
@@ -17,7 +16,7 @@ public class IngredientCommandToIngredient implements Converter<IngredientComman
 
     @Nullable
     @Override
-    public Ingredient convert(IngredientCommand source) {
+    public Ingredient convert(guru.springframework.commands.IngredientCommand source) {
         if (source == null) {
             return null;
         }

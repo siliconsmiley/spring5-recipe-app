@@ -1,6 +1,5 @@
 package guru.springframework.converters;
 
-import guru.springframework.commands.IngredientCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
 import guru.springframework.domain.UnitOfMeasure;
@@ -47,7 +46,7 @@ public class IngredientToIngredientCommandTest {
         ingredient.setDescription(DESCRIPTION);
         ingredient.setUom(null);
         //when
-        IngredientCommand ingredientCommand = converter.convert(ingredient);
+        guru.springframework.commands.IngredientCommand ingredientCommand = converter.convert(ingredient);
         //then
         assertNull(ingredientCommand.getUom());
         assertEquals(ID_VALUE, ingredientCommand.getId());
@@ -69,7 +68,7 @@ public class IngredientToIngredientCommandTest {
 
         ingredient.setUom(uom);
         //when
-        IngredientCommand ingredientCommand = converter.convert(ingredient);
+        guru.springframework.commands.IngredientCommand ingredientCommand = converter.convert(ingredient);
         //then
         assertEquals(ID_VALUE, ingredientCommand.getId());
         assertNotNull(ingredientCommand.getUom());
