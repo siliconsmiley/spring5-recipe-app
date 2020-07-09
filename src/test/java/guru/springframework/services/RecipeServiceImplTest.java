@@ -56,16 +56,33 @@ public class RecipeServiceImplTest {
     @Test
     public void getRecipesTest() {
         // set up recipe data
+        // given
         Recipe recipe = new Recipe();
         HashSet recipesData = new HashSet();
         recipesData.add(recipe);
 
         // mockito when returns recipesData when repository find all is called
+        // when
         when(recipeRepository.findAll()).thenReturn(recipesData);
 
+        // then
         Set<Recipe> recipes = recipeService.getRecipes();
 
         assertEquals(1, recipes.size());
         verify(recipeRepository, times(1)).findAll();
+    }
+
+    @Test
+    public void deleteRecipeTest() {
+        // given
+        Long idToDelete = Long.valueOf(2L);
+
+        // when
+        recipeService.deleteById(idToDelete);
+
+        // no when, method has void return type
+
+        // then
+        verify(recipeRepository, times(1)).deleteById(anyLong());
     }
 }

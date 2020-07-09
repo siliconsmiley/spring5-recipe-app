@@ -24,6 +24,8 @@
         <div class="col-md-6 col-md-offset-3">
             <form method="post" th:action="@{/recipe/}" th:object="${recipe}">
                 <input th:field="*{id}" type="hidden"/>
+                <!-- added this to fix error when deleting after an update -->
+                <input th:field="*{notes.id}" type="hidden"/>
                 <div class="pannel-group">
                     <div class="panel panel-primary">
                         <div class="panel-heading">

@@ -33,7 +33,8 @@ public class Recipe {
     @Lob
     private Byte[] image;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    // added orphanRemoval to fix delete after update that caused referential integrity/constraint violation exception because additional notes are created for each udpate
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Notes notes;
 
     @ManyToMany
