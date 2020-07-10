@@ -84,15 +84,32 @@ public class IngredientServiceImpl implements IngredientService {
 
             } else {
                 // add new ingredient
+                // updated to reflect bi-directional relationship
+                Ingredient ingredient = ingredientCommandToIngredient.convert(command);
+                ingredient.setRecipe(recipe);
                 recipe.addIngredient(ingredientCommandToIngredient.convert(command));
             }
             Recipe savedRecipe = recipeRepository.save(recipe);
             log.debug("saved ingredients for recipe id: " + savedRecipe.getId());
 
-            // TODO check for failure
-            return ingredientToIngredientCommand.convert(savedRecipe.getIngredients().stream()
+            // find the ingredient with the ID given in the ingredient command
+            Optional<Ingredient> savedIngredientOptional = savedRecipe.getIngredients().stream()
                     .filter(recipeIngredients -> recipeIngredients.getId().equals(command.getId()))
-                    .findFirst().get());
+                    .findFirst();
+
+            // check by description
+            if (!savedIngredientOptional.isPresent()) {
+                // TODO not entirely save, best guess
+                // fields below not specified as unique so duplication is possible
+                // TODO add unit test for this case
+                savedIngredientOptional = savedRecipe.getIngredients().stream()
+                        .filter(recipeIngredients -> recipeIngredients.getDescription().equals(command.getDescription()))
+                        .filter(recipeIngredients -> recipeIngredients.getAmount().equals(command.getAmount()))
+                        .filter(recipeIngredients -> recipeIngredients.getUom().getId().equals(command.getUom().getId()))
+                        .findFirst();
+            }
+            // TODO check for failure
+            return ingredientToIngredientCommand.convert(savedIngredientOptional.get());
         }
 
     }
