@@ -7,6 +7,7 @@ import guru.springframework.converters.UnitOfMeasureCommandToUnitOfMeasure;
 import guru.springframework.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
+import guru.springframework.repositories.IngredientRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import org.junit.Before;
@@ -35,6 +36,9 @@ public class IngredientServiceImplTest {
     RecipeRepository recipeRepository;
 
     @Mock
+    IngredientRepository ingredientRepository;
+
+    @Mock
     UnitOfMeasureRepository unitOfMeasureRepository;
 
     // initialize converter
@@ -47,7 +51,7 @@ public class IngredientServiceImplTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        ingredientService = new IngredientServiceImpl(recipeRepository, ingredientToIngredientCommand, ingredientCommandToIngredient, unitOfMeasureRepository);
+        ingredientService = new IngredientServiceImpl(recipeRepository, ingredientRepository, ingredientToIngredientCommand, ingredientCommandToIngredient, unitOfMeasureRepository);
     }
 
     @Test
@@ -111,5 +115,19 @@ public class IngredientServiceImplTest {
         assertEquals(Long.valueOf(3L), savedCommand.getId());
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, times(1)).save(any(Recipe.class));
+    }
+
+    @Test
+    public void deleteIngredientTest() {
+        // given
+        Long ingredientIdToDelete = Long.valueOf(1L);
+
+        // when
+        ingredientRepository.deleteById(ingredientIdToDelete);
+
+        // no when, method returns void
+
+        // then
+        verify(ingredientRepository, times(1)).deleteById(anyLong());
     }
 }
