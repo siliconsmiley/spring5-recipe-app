@@ -118,7 +118,7 @@ public class IngredientServiceImplTest {
     }
 
     @Test
-    public void deleteIngredientTest() {
+    public void deleteIngredientByIdTest() {
         // given
         Long ingredientIdToDelete = Long.valueOf(1L);
 
